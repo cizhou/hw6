@@ -316,7 +316,10 @@ HashTable<K,V,Prober,Hash,KEqual>::HashTable(
 template<typename K, typename V, typename Prober, typename Hash, typename KEqual>
 HashTable<K,V,Prober,Hash,KEqual>::~HashTable()
 {
-    table_.clear();
+    for (int i = 0; i < table_.size(); i++)
+    {
+        delete table_[i];
+    }
 }
 
 // To be completed
@@ -476,7 +479,7 @@ void HashTable<K, V, Prober, Hash, KEqual>::resize()
     size_ = 0;
     total_ = 0;
     totalProbes_ = 0;
-    
+
     // Copy everything over to the new table 
     for (size_t i = 0; i < temp.size(); i++) 
     {
